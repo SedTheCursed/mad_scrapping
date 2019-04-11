@@ -1,7 +1,6 @@
 require "rubygems"
 require "nokogiri"
 require "open-uri"
-require "pry"
 
 URL = "https://www.voxpublic.org/spip.php?page=annuaire&cat=deputes&pagnum=600&debut_deputes=500#pagination_deputes"
 
@@ -18,9 +17,10 @@ def get_congressmen(url)
     first_name = title[0]
     title.delete(first_name)
     last_name = title.join(" ")
-    congressmen_info << {first_name: first_name, last_name: last_name}
-    binding.pry
-  end
-end
+    email = congressman.css("a[href^='mailto:']")[0].text.sub(/^mailto:/, "").tr(" ","")
 
-get_congressmen(URL)
+    congressmen_info << {first_name: first_name, last_name: last_name, email: email}
+  end
+
+  congressmen_info
+end
