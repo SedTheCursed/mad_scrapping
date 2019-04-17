@@ -1,4 +1,4 @@
-require_relative "../lib/mairie_christmas"
+require_relative "../lib/scrapper"
 
 describe "The open_page function" do
   it "return an HTML document" do
